@@ -1,0 +1,21 @@
+Implementation plan:
+
+- Create database, raw tables
+- Inserting all data to raw tables
+- loop over rows in the raw table, for each row
+	- go through functions to create normalized rows, for each function
+		- get unique id for the data created for tables (tweet, user and hashtag)
+		- check if the current data is in the new table
+			- if yes, return the existing id
+			- if no
+				- create row in corresponding new tables
+				- create id for the new row
+	- join the tables by relation
+		- check whether there is relation of tweet and user, tweet and hashtag, tweet and user mentions 
+			- if yes, return relationship id in the relationship table
+			- if no, create new relationship row in the relationship table
+- after looping the rows
+	- in each table, get the descriptive statistics
+	- in relationship table, get descriptive statistics about tweet/user, hashtag/tweet and user mentioned/tweet
+
+		

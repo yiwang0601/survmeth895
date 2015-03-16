@@ -1,0 +1,78 @@
+exercise 6
+
+1. number of distinct users in the data set: 297569
+
+  code: 
+	SELECT *
+	FROM user
+	WHERE  user_created IS NOT NULL;
+
+2. average number of tweets per user with multiple tweets: 2.3287
+
+  code:
+	Select AVG(Z.COUNT) 
+	FROM (
+		SELECT COUNT(twitter_tweet_id) AS [COUNT]
+		FROM tweet
+		GROUP BY tweet_user_id
+		HAVING COUNT(twitter_tweet_id)  > 1
+	) AS Z
+
+3. Average number of hashtags in tweets: 0.2994
+
+  code: 
+	SELECT SUM(tweet_hashtag_mention_count) / count(twitter_tweet_id)
+	FROM tweet
+
+4. Max number of hashtags in tweets: 22
+
+  code:
+	SELECT COUNT(hashtag_id), tweet_id
+	FROM tweet_hashtag
+	GROUP BY tweet_id
+	ORDER BY COUNT(hashtag_id) DESC
+
+5. Number of tweets with hash tags: 55716
+
+  code:
+	SELECT COUNT(distinct tweet_id)
+	FROM tweet_hashtag
+
+6. Percent of overall data set that has hashtags: 56.94%
+
+  code:
+	SELECT COUNT(distinct h.tweet_id) * 10000 / COUNT(t.id)
+	FROM tweet_hashtag h, tweet t
+	WHERE h.tweet_id = t.id
+
+
+7. Average number of user mentions in tweets: 0.7982
+
+  code:
+	SELECT SUM(tweet_user_mention_count) / count(twitter_tweet_id)
+	FROM tweet
+
+8. Max number of user mentions in tweets: 15
+
+  code:
+	SELECT COUNT(mentioned_user_id), tweet_id
+	FROM tweet_user_mentions
+	GROUP BY tweet_id
+	ORDER BY COUNT(mentioned_user_id) DESC
+
+9. Number of tweets with user mentions: 207681
+
+  code:
+	SELECT COUNT(distinct tweet_id)
+	FROM tweet_user_mentions
+
+10. Percent of overall data set that has user mentions: 78.73%
+
+  code:
+	SELECT COUNT(distinct u.tweet_id) * 10000 / COUNT(t.id)
+	FROM tweet_user_mentions u, tweet t
+	WHERE u.tweet_id = t.id
+
+
+
+
